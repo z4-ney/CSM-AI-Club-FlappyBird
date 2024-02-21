@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # pygame innit
 pygame.init()
@@ -21,18 +22,18 @@ bird_start_pos = (80,350)
 ground = pygame.Rect(0,700,450,100)
 
 # bird
+bird = pygame.Rect(100,350,45,35)
 
-class Bird(pygame.Rect):
-     def __init__(self):
-          self.rect.center = bird_start_pos
-          self.rect.fill = (255,0,255)
+# class Bird(pygame.Rect):
+#      def __init__(self):
+#           self.rect.center = bird_start_pos
+#           self.rect.fill = (255,0,255)
 
 
 # class Ground():
 #     ground = pygame.Rect(0,700,450,100)
 #     def __init__():
 #     def update():
-        
 
 def quit_game():
     for event in pygame.event.get(): 
@@ -44,27 +45,43 @@ def quit_game():
 
 def main():
 
-    #bird
-    bird = pygame.Rect(0,0,30,20)
     #bird.add(Bird())
-    
+    vel = 0
+    flap = False
+
     # game is run
     run = True
 
     # game loop 
     while run: 
+
+        user_input = pygame.key.get_pressed()
+
         # Quit
         quit_game()
 
         # Reset screen
         screen.fill(colon)
 
+        #bird.draw(screen)
+
         # draw the ground
         pygame.draw.rect(screen,(255,0,255),ground)
 
         # draw bird
-        #bird.draw(screen)
+        pygame.draw.rect(screen,(120,0,255),bird)
 
+        bird.y += int(vel)
+        vel += .5
+        if (vel > 6):
+             vel = 6
+        if vel == 0:
+             flap = False
+
+        if user_input[pygame.K_SPACE] == True and not flap and bird.y > 10:
+             flap = True
+             vel = -8
+        
         clock.tick(60)
         pygame.display.update()
 
