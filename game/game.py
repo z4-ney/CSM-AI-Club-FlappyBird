@@ -71,6 +71,8 @@ def main():
         # draw bird
         pygame.draw.rect(screen,(120,0,255),bird)
 
+        if bird.y >= 659:
+          bird.y -= bird.y-659
         bird.y += int(vel)
         vel += .5
         if (vel > 6):
